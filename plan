@@ -1,0 +1,53 @@
+plan:
+1. jednom dnevno se vrse skenovi za sve projekte
+2. proverava se razlika outputa jucerasnjeg skena i danasnjeg
+    razlika se cuva u folderu za danasnji sken
+3. rezultati od pre 2 dana se automatski brisu
+
+forma 0 - meni
+    unos projekta
+    log
+    exit
+
+forma 1 - unos podataka
+    project
+        ip addr
+        url/urls
+
+testovi
+    nmap
+    rustscan
+    owasp zap auto scann
+    arachni
+    sqlmap
+    gobuster:
+        subdomains
+        dirs
+
+logika
+    svaki projekat ima svoju tabelu u bazi:
+        naziv tabele == naziv projekta
+        prvi red == ip addr
+        ostalo == urls
+    output se vrsi u .log fajlove
+        nmap.log
+        rustscan.log
+        zap.log
+        arachni.log
+        sqlmap.log
+        go_sub.log
+        go_dir.log
+    za sve logove sa vise url-a na projektu
+    izuzev robots.txt
+        ( wget http://$project.com/robots.txt )
+        robots.txt
+    svi log fajlovi su smesteni u direktorijum pod nazivom
+        ~/semi/$date_$project
+
+backend
+    sqlite3 tabele
+        $projects, exmp - skinport.com, microsoft.net
+            url, but first let me take an ip
+        current
+        - stats?!
+    python3
