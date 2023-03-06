@@ -14,6 +14,11 @@ forma 1 - unos podataka
         ip addr
         url/urls
 
+forma 2 - pregled rezultata
+    prikazi projekte (direktorijume)
+    prikazi dostupne logove za projekat
+    prikazi rezultat logova (mozda u vim-u)
+
 testovi
     nmap
     rustscan
@@ -50,4 +55,6 @@ backend
             url, but first let me take an ip
         current
         - stats?!
+        - options for tools?!
+        - saved settings?!
     python3
