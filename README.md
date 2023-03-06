@@ -6,4 +6,5 @@ this is my project for automated bug bounty scanning of multiple projects (aka b
 - owasp zap
 - rustscan
 - gobuster
+
 and probably will add some more while working on a project.
