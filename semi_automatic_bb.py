@@ -13,7 +13,7 @@ banner = """
                #%%&&&#%%%&&&&&&&%%%&%%&%@@%&%&&&&@@@@@@&@@&&&&&&&&&&&           
                     &#%%&&&&&&&&&&&&%,       %&                                 
                    %%(%%%%%%%&&&&& @((        (                                 
-                  &&##%%&&&&&&%%%&   (@ _===_,%                                 
+                  &&##%%&&&&&&%%%&   (@ -===-,%                                 
                 %&%##%%&&&%%&&                                                  
                (&###%&&&&&&&&%                                                  
               &&%#(%&&&&&&&&%                    SEMI                               
@@ -47,7 +47,8 @@ class MainMenu:
         inp = input('\n[ ? ] Select Option >>> ')
 
         if inp == '1':
-            pass
+            AddProject()
+            #AddProject.drugo(self)
 
         if inp == '2':
             pass
@@ -55,24 +56,32 @@ class MainMenu:
         if inp == '3':
             pass
 
-        if inp == 'x':
+        if inp == 'x' or inp == 'X':
             print(f'\n{bcolors.OKCYAN}[...] Bye')
             sys.exit()
 
         else:
             print(f'\n{bcolors.FAIL}[ ! ] Code Error{bcolors.ENDC}')
-            time.sleep(2)
-            restart = MainMenu()
+            time.sleep(0.5)
+            start()
 
 
-class UserInput:
+class AddProject:
     def __init__(self):
+        print(f'\n{bcolors.OKBLUE}You are in frame for adding new project{bcolors.ENDC}\n')
         self.project = input("Enter project name: ")
         self.url = input("Enter URL: ")
         self.ip = input("Enter IP address: ")
 
+    def drugo(self):
+        print('123')
+
+def start():
+    os.system('clear')
+    starting = MainMenu()
+
 if __name__ == '__main__':
     try:
-        start = MainMenu()
+        start()
     except KeyboardInterrupt:
         print(f'\n{bcolors.FAIL}[!!!] Keyboard Interrupt')
