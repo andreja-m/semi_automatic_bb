@@ -39,7 +39,7 @@ class bcolors:
 
 class MainMenu:
     def __init__(self):
-        print(banner)
+        #print(banner)
         print('[ 1 ] - Add Project')
         print('[ 2 ] - Edit Project')
         print('[ 3 ] - Start Scann')
@@ -48,7 +48,7 @@ class MainMenu:
 
         if inp == '1':
             AddProject()
-            #AddProject.drugo(self)
+            AddProject.another_one(self)
 
         if inp == '2':
             pass
@@ -70,18 +70,30 @@ class AddProject:
     def __init__(self):
         print(f'\n{bcolors.OKBLUE}You are in frame for adding new project{bcolors.ENDC}\n')
         self.project = input("Enter project name: ")
-        self.url = input("Enter URL: ")
         self.ip = input("Enter IP address: ")
+        self.url = input("Enter URL: ")
 
-    def drugo(self):
-        print('123')
+    def another_one(self):
+        another = input('\nDo you want do add another url? y/n: ')
+
+        if another == 'n':
+            pass
+
+        if another == 'y':
+            another_url = input('Enter another url: ')
+            AddProject.another_one(self)
+
+        else:
+            print(f'{bcolors.FAIL}[ ! ] Invalid option{bcolors.ENDC}')
+            return
+
 
 def start():
-    os.system('clear')
+    #os.system('clear')
     starting = MainMenu()
 
 if __name__ == '__main__':
     try:
         start()
     except KeyboardInterrupt:
-        print(f'\n{bcolors.FAIL}[!!!] Keyboard Interrupt')
+        print(f'\n{bcolors.FAIL}[!!!] {bcolors.BOLD}Keyboard Interrupt')
