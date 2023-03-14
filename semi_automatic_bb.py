@@ -2,7 +2,12 @@
 
 import os
 import time
+import sqlite3
 import sys
+
+
+conn = sqlite3.connect('semi.db')
+c = conn.cursor()
 
 
 banner = """
@@ -24,6 +29,8 @@ banner = """
             &%%&&&&&&&&&&&                                                      
                                                                                 
 """
+
+
 class bcolors:
     HEADER =    '\033[95m'
     OKBLUE =    '\033[94m'
@@ -36,6 +43,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
     ITALIC =    '\033[3m'
     BLINK =     '\033[5m'
+
 
 class MainMenu:
     def __init__(self):
@@ -61,7 +69,7 @@ class MainMenu:
             sys.exit()
 
         else:
-            print(f'\n{bcolors.FAIL}[ ! ] Code Error{bcolors.ENDC}')
+            print(f'\n{bcolors.FAIL}[ ! ] Code Error{bcolors.ENDC}\n')
             time.sleep(0.5)
             start()
 
@@ -72,6 +80,38 @@ class AddProject:
         self.project = input("Enter project name: ")
         self.ip = input("Enter IP address: ")
         self.url = input("Enter URL: ")
+
+        try:
+            c.execute(f""" CREATE TABLE {self.project} \
+                           (info TEXT(255) NOT NULL,
+                           sqlmap TEXT(255));
+                       """)
+        except sqlite3.OperationalError:
+            print(f'\n{bcolors.FAIL}[ ! ] Table/Project {self.project} already exist{bcolors.ENDC}')
+            err = input('Do you want to drop this and start over? y/n ')
+            
+            if err == 'y':
+                c.execute(f"DROP TABLE IF EXISTS {self.project}")
+                c.execute(f""" CREATE TABLE {self.project} \
+                               (info TEXT(255) NOT NULL,
+                               sqlmap TEXT(255));
+                           """)
+                
+            else:
+                print('\n...program will return to Main Menu')
+                time.sleep(0.5)
+                MainMenu()
+
+        c.execute(f""" INSERT INTO {self.project} \
+                       (info) VALUES (?)""", \
+                  (self.ip,))
+
+        c.execute(f""" INSERT INTO {self.project} \
+                       (info) VALUES (?)""", \
+                  (self.url,))
+
+        conn.commit()
+        print(f'Project {self.project} is added to DB.')
 
     def another_one(self):
         another = input('\nDo you want do add another url? y/n: ')
@@ -84,16 +124,30 @@ class AddProject:
             AddProject.another_one(self)
 
         else:
-            print(f'{bcolors.FAIL}[ ! ] Invalid option{bcolors.ENDC}')
+            print(f'\n{bcolors.FAIL}[ ! ] Invalid option{bcolors.ENDC}')
             return
+
+
+class ProjectEdit:
+    def __init__(self):
+        pass
+
+    def check_link():
+        pass
+
+
+class Scann:
+    def __init__(self):
+        pass
 
 
 def start():
     #os.system('clear')
     starting = MainMenu()
 
+
 if __name__ == '__main__':
     try:
         start()
     except KeyboardInterrupt:
-        print(f'\n{bcolors.FAIL}[!!!] {bcolors.BOLD}Keyboard Interrupt')
+        print(f'\n\n{bcolors.FAIL}[!!!] {bcolors.BOLD}Keyboard Interrupt')
